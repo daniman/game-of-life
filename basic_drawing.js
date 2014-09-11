@@ -20,7 +20,7 @@
 	pad.draw_rectangle(Coord(0, 0), pad.get_width(), pad.get_height(), 10, black);
 
 	// draw some circles and squares inside
-	var RADIUS = 5;
+	var RADIUS = 10;
 	var LINE_WIDTH = 2;
 	for (var i = 10; i < MAX_X; i = i + 10) {
 		for (var j = 10; j < MAX_Y; j = j + 10) {
