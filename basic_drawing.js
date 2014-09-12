@@ -20,7 +20,7 @@
 	pad.draw_rectangle(Coord(0, 0), pad.get_width(), pad.get_height(), 10, black);
 
 	// draw some circles and squares inside
-	var RADIUS = 10;
+	var RADIUS = 15;
 	var LINE_WIDTH = 2;
 	for (var i = 10; i < MAX_X; i = i + 10) {
 		for (var j = 10; j < MAX_Y; j = j + 10) {
@@ -29,8 +29,10 @@
 				pad.draw_circle(Coord(i*x_factor, j*y_factor),
 					RADIUS, LINE_WIDTH, green, green);
 			} else {
-				pad.draw_rectangle(Coord(i*x_factor-RADIUS, j*y_factor-RADIUS),
-					RADIUS*2, RADIUS*2, LINE_WIDTH, red);
+				// pad.draw_rectangle(Coord(i*x_factor-RADIUS, j*y_factor-RADIUS),
+				// 	RADIUS*2, RADIUS*2, LINE_WIDTH, red);
+					pad.draw_circle(Coord(i*x_factor, j*y_factor),
+					RADIUS/3, LINE_WIDTH, red, red);
 				}
 			}
 		}
