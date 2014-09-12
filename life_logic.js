@@ -11,14 +11,27 @@ function World(X,Y) {
 	this.x = X;
 	this.y = Y;
 
+	// for (var i=0; i<X; i++) {
+	// 	col = [];
+	// 	for (var j=0; j<Y; j++) {
+	// 		if (i%2 == j%2) {
+	// 			col.push(new Cell(i,j,1,this.x,this.y));
+	// 		} else {
+	// 			col.push(new Cell(i,j,0,this.x,this.y));
+	// 		}
+	// 	}
+	// 	this.world.push(col);
+	// }
+
 	for (var i=0; i<X; i++) {
 		col = [];
 		for (var j=0; j<Y; j++) {
-			if (i%2 == j%2) {
-				col.push(new Cell(i,j,0,this.x,this.y));
-			} else {
-				col.push(new Cell(i,j,1,this.x,this.y));
+			var state = 0;
+			var rand = Math.random();
+			if (rand > 0.75) {
+				state = 1;
 			}
+			col.push(new Cell(i,j,state,this.x,this.y));
 		}
 		this.world.push(col);
 	}
