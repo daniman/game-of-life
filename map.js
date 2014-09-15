@@ -1,3 +1,4 @@
+// maping function to reduce code complexity
 function map_world(world, f) {
 	var output = [];
 	for (var i=0; i<world.world.length; i++) {

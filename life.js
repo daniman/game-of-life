@@ -1,7 +1,13 @@
+// This file houses the functions that manipulate the elements of the page.
+// The way it is currently structured, the page is a canvas that redraws
+//     itself every time the world is updated.
+
 world = new World(13,13);
 draw_world();
 $("#size").val(world.x);
 
+// Function for making the image continuously update when
+//    the user clicks play.
 var playing = false;
 var player = window.setInterval(function() {
 	if(playing) {
