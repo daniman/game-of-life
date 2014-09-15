@@ -13,7 +13,7 @@ var player = window.setInterval(function() {
 	if(playing) {
 		update();
 	}
-}, 500);
+}, 250);
 
 function update() {
 	world.update_world();

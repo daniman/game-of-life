@@ -5,7 +5,7 @@
 // 		is determined randomly - every time you initialize it it will be different.
 
 // Game is comprised of cell units
-function Cell(x,y,state,X,Y) {
+function Cell(x,y,state) {
 	this.x = x;
 	this.y = y;
 	this.state = state;
@@ -28,7 +28,7 @@ function World(X,Y) {
 			if (rand > 0.75) {
 				state = 1;
 			}
-			col.push(new Cell(i,j,state,this.x,this.y));
+			col.push(new Cell(i,j,state));
 		}
 		this.world.push(col);
 	}
