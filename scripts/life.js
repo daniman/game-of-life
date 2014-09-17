@@ -13,9 +13,10 @@ var player = window.setInterval(function() {
 	if(playing) {
 		update();
 	}
-}, 500);
+}, 250);
 
 function update() {
+	console.log("updating")
 	world.update_world();
 	draw_world(world);
 }
@@ -46,6 +47,8 @@ function reset() {
 }
 
 function draw_world() {
+	console.log("got to drawing world")
+	console.log(world);
 
 	var black = Color(0,0,0);
 	var gray = Color(249,249,249);
