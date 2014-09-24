@@ -1,8 +1,11 @@
-// This files houses the logic for the Game of Life.
-// I have designed the game to have two main components, cells and a world.
-// Each world is a square comprised of cells, which are held in a 2D array.
-// You initialize a board to a specific size, but the state of the board
-// 		is determined randomly - every time you initialize it it will be different.
+/**
+
+Logic for Conway's Game of Life.
+
+The game state is held in a World, which is comprised of
+Cells. The initial state of the world is randomly generated.
+
+**/
 
 // Game is comprised of cell units
 function Cell(x,y,state,world) {
@@ -13,7 +16,6 @@ function Cell(x,y,state,world) {
 	this.world = world;
 	this.update = function() {
 		var neighbors = this.world.num_neighbors(this);
-		console.log(neighbors);
 		if (neighbors<2) {
 			this.next_state = 0; // kill
 		} else if (neighbors>3) {
@@ -29,12 +31,10 @@ function Cell(x,y,state,world) {
 
 function World(X,Y) {
 	this.world = []; // 2D list of cells
-	this.x = X;
-	this.y = Y;
+	this.x = X; // board width
+	this.y = Y; // board height
 
-	// Randomly generates a gameboard
-	// .25 probability of live cells
-	// .75 probability of dead cells
+	// initialize state randomly
 	for (var i=0; i<X; i++) {
 		col = [];
 		for (var j=0; j<Y; j++) {
@@ -48,21 +48,7 @@ function World(X,Y) {
 		this.world.push(col);
 	}
 
-	// Print game state to console for debugging purposes
-	this.print = function() {
-		string = "\r\n"
-		for (var i=0; i<this.x; i++) {
-			for (var j=0; j<this.y; j++) {
-				var cell = this.world[i][j];
-				if (cell.state == 0) { string = string + "-"; } else { string = string + "X"; }
-				string = string + " ";
-			}
-			string = string + "\r\n";
-		}
-		return string;
-	}
-
-	// returns the number of alive neighbors of a given cell
+	// returns the number of alive neighbors of a cell
 	this.num_neighbors = function(cell) {
 		var neighbors = [[-1,1],[0,1],[1,1],[-1,0],[1,0],[-1,-1],[0,-1],[1,-1]];
 		var num = 0;
@@ -77,17 +63,8 @@ function World(X,Y) {
 		return num;
 	}
 
-	// You want to update cells for a given world state, not dynamically because
-	// then they can be affected by their neighbors that have just been updated.
-	// Once each cell in the given world state has determined what it's next
-	// state should be, this funtion updates them to that state.
+	// update world state based on what the next cell state should be
 	this.update_world = function() {
-		// this.world = map_world(this, update_cell);
-		// this.world = map_world(this, function(cell,world) {
-		// 	cell.state = cell.next_state;
-		// 	return cell
-		// })
-		console.log("updating world");
 		for (var i=0; i<world.world.length; i++) {
 			for (var j=0; j<world.world[i].length; j++) {
 				var cell = world.world[i][j];
@@ -100,9 +77,5 @@ function World(X,Y) {
 				cell.state = cell.next_state;
 			}
 		}
-
-
-
-
 	}
 }

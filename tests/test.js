@@ -7,17 +7,34 @@ test ("cell class", function() {
 });
 
 test ("world class", function() {
-	var w = new World(2,2);
-	w.world = map_world(w, function(cell,w) {
-		cell.state = 1;
-		return cell
-	});
-	equal(w.x, 2, "width");
-	equal(w.y, 2, "height");
-	equal(w.print(), "\r\nX X \r\nX X \r\n", "map, print")
+	var w = new World(3,3);
+
+	w.world[0][0].state = 1;
+	w.world[0][1].state = 0;
+	w.world[0][2].state = 1;
+	w.world[1][0].state = 0;
+	w.world[1][1].state = 1;
+	w.world[1][2].state = 0;
+	w.world[2][0].state = 1;
+	w.world[2][1].state = 0;
+	w.world[2][2].state = 1;
+
+	equal(w.x, 3, "width");
+	equal(w.y, 3, "height");
+
+	equal(w.num_neighbors(w.world[1][1]), 4,  "num_neighbors");
+	w.update_world();
+
+	console.log(w.world);
+
+	equal(w.world[0][0].state,0,"update_cell, update_world, map")
+	equal(w.world[0][1].state,1,"update_cell, update_world, map")
+	equal(w.world[0][2].state,0,"update_cell, update_world, map")
+	equal(w.world[1][0].state,1,"update_cell, update_world, map")
+	equal(w.world[1][1].state,0,"update_cell, update_world, map")
+	equal(w.world[1][2].state,1,"update_cell, update_world, map")
+	equal(w.world[2][0].state,0,"update_cell, update_world, map")
+	equal(w.world[2][1].state,1,"update_cell, update_world, map")
+	equal(w.world[2][2].state,0,"update_cell, update_world, map")
 
 });
-
-// num_neighbors
-// update_world
-// update_cell
