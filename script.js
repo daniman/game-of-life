@@ -1,7 +1,25 @@
+/**
+
+DOM Manipulations for Conway's Game of Life.
+
+These functions instantiate the board and enable the buttons
+of the web app.
+
+**/
+
+
+/**
+Fetch window size to determine board size. Initialize world.
+**/
 var X = Math.floor(($(window).width()-200) / 20);
 var Y = Math.floor(($(window).height()-200) / 20);
 var world = new World(X,Y);
 
+/**
+Instantiate the board (table). Note that this is done with
+JavaScript because the size of the board depends on the size
+of the window.
+**/
 table = "<tbody>"
 for (var j=0; j<world.y; j++) {
 	table += "<tr>"
@@ -14,6 +32,29 @@ for (var j=0; j<world.y; j++) {
 }
 $("#world_container").html(table + "</tbody>");
 
+/**
+Compares the world state to the state of the HTML representing 
+the world and updates appropriately.
+**/
+function update_table() {
+	for (var j=0; j<world.y; j++) {
+		for (var i=0; i<world.x; i++) {
+			var cell = world.world[i][j];
+			var td = $("#"+i+"_"+j);
+			if (cell.state==0 && td.attr('class')=='alive') {
+				td.removeClass('alive');
+				td.addClass('dead')
+			} else if (cell.state==1 && td.attr('class')=='dead') {
+				td.removeClass('dead');
+				td.addClass('alive')
+			}
+		}
+	}
+}
+
+/**
+Play, Pause, Step buttons.
+**/
 var player;
 function play() {
 	player = window.setInterval(function() {
@@ -39,6 +80,11 @@ function step() {
 	$("#step").addClass("gray");
 }
 
+/**
+Red button. This places a circle of live cells somwhere randomly
+on the board. When clicked in fast succession from an empty board
+state, it has the effect of fireworks.
+**/
 function explosion() {
 	ring = [[0,0],[-2,-1],[-2,0],[-2,1],[-1,2],[0,2],[1,2],[2,-1],[2,0],[2,1],[-1,-2],[0,-2],[1,-2]];
 	randX = Math.floor(Math.random() * X);
@@ -54,11 +100,17 @@ function explosion() {
 	}
 }
 
+/**
+Orange button. This restarts the board at a new random state.
+**/
 function reset() {
 	world = new World(X,Y);
 	update_table();
 }
 
+/**
+Blue button. This kills all the cells in the world, thus clearing the board.
+**/
 function erase() {
 	for (var j=0; j<world.y; j++) {
 		for (var i=0; i<world.x; i++) {
@@ -71,22 +123,9 @@ function erase() {
 	}
 }
 
-function update_table() {
-	for (var j=0; j<world.y; j++) {
-		for (var i=0; i<world.x; i++) {
-			var cell = world.world[i][j];
-			var td = $("#"+i+"_"+j);
-			if (cell.state==0 && td.attr('class')=='alive') {
-				td.removeClass('alive');
-				td.addClass('dead')
-			} else if (cell.state==1 && td.attr('class')=='dead') {
-				td.removeClass('dead');
-				td.addClass('alive')
-			}
-		}
-	}
-}
-
+/**
+Mouse actions that enable drag paint and cell clicking features.
+**/
 var dragging = false;
 $(window).mousedown(function(){
 	dragging = true;

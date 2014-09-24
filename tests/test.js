@@ -23,9 +23,12 @@ test ("world class", function() {
 	equal(w.y, 3, "height");
 
 	equal(w.num_neighbors(w.world[1][1]), 4,  "num_neighbors");
+
+	console.log(w);
+
 	w.update_world();
 
-	console.log(w.world);
+	console.log(w);
 
 	equal(w.world[0][0].state,0,"update_cell, update_world, map")
 	equal(w.world[0][1].state,1,"update_cell, update_world, map")

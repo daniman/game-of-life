@@ -7,7 +7,12 @@ Cells. The initial state of the world is randomly generated.
 
 **/
 
-// Game is comprised of cell units
+
+/**
+Cell class. Each Cell has a state, a next state, and a x,y coord.
+The cell is also aware of the world that it lives in so taht it
+can find the state of its neighbors and update accordingly.
+**/
 function Cell(x,y,state,world) {
 	this.x = x;
 	this.y = y;
@@ -29,6 +34,10 @@ function Cell(x,y,state,world) {
 	};
 }
 
+/**
+World class. The world is comprised of cells and initialized
+randomly. The state of the world is held in a 2D array.
+**/
 function World(X,Y) {
 	this.world = []; // 2D list of cells
 	this.x = X; // board width
@@ -65,15 +74,15 @@ function World(X,Y) {
 
 	// update world state based on what the next cell state should be
 	this.update_world = function() {
-		for (var i=0; i<world.world.length; i++) {
-			for (var j=0; j<world.world[i].length; j++) {
-				var cell = world.world[i][j];
+		for (var i=0; i<this.world.length; i++) {
+			for (var j=0; j<this.world[i].length; j++) {
+				var cell = this.world[i][j];
 				cell.update()
 			}
 		}
-		for (var i=0; i<world.world.length; i++) {
-			for (var j=0; j<world.world[i].length; j++) {
-				var cell = world.world[i][j];
+		for (var i=0; i<this.world.length; i++) {
+			for (var j=0; j<this.world[i].length; j++) {
+				var cell = this.world[i][j];
 				cell.state = cell.next_state;
 			}
 		}
